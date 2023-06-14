@@ -54,6 +54,9 @@ Examples
   Format your Prisma schema
   $ prisma format
 
+Initializa if db are delete and create new
+npx prisma migrate dev --name read
+
 
   Install and generate Prisma Client
 To get started with Prisma Client, you need to install the @prisma/client package:
@@ -63,3 +66,17 @@ Notice that the install command automatically invokes prisma generate for you wh
 
 to view the database tables
 npx prisma studio
+
+
+
+
+resume from here
+npm i prisma
+npx prisma init
+npx prisma migrate dev --name read
+
+add to git ignore
+.env
+
+for client side
+npm install @prisma/client
