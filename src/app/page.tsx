@@ -19,10 +19,11 @@ export default function Home() {
     UpdatedDate: new Date(),
   });
 
-  const getUsers = async () => {
-    const res = await axios.get('/api/user').catch((error) => {
-      console.log('catch: ', error.message);
-    });
+  const GetUsers = async () => {
+    const res = await axios.get('/api/user')
+      .catch((error) => {
+        console.log('catch: ', error.message);
+      });
 
     if (res && res.data) {
       setUsers(res.data);
@@ -31,7 +32,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getUsers();
+    GetUsers();
   }, []);
 
   const addUser = async (e: SyntheticEvent) => {
@@ -45,13 +46,13 @@ export default function Home() {
 
     if (resp && resp.data) {
       console.log('AddUser->resp.data: ', resp.data);
-      getUsers();
+      GetUsers();
     }
 
     ResetUser()
   };
 
-  const updateUser = async (e: SyntheticEvent) => {
+  const UpdateUser = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const resp = await axios.put('/api/user/', {
@@ -63,7 +64,7 @@ export default function Home() {
 
     if (resp && resp.data) {
       console.log('UpdateUser->resp.data: ', resp.data);
-      getUsers();
+      GetUsers();
     }
 
     ResetUser()
@@ -73,15 +74,14 @@ export default function Home() {
     setUser(prevState => ({ ...prevState, Id: 0, Login: '', Email: '', Password: '' }))
   }
 
-  const editUser = async (userId: number) => {
+  const EditUser = async (userId: number) => {
     const userFound = users.find(user => user.Id === userId);
     if (userFound) {
       setUser(userFound);
     }
   }
 
-
-  const deleteUser = async (userId: number) => {
+  const DeleteUser = async (userId: number) => {
     const resp = await axios.delete("/api/user", {
       params: { Id: userId }
     }).catch((error) => {
@@ -90,29 +90,29 @@ export default function Home() {
 
     if (resp && resp.data) {
       console.log('DeleteUser->resp.data: ', resp.data);
-      getUsers();
+      GetUsers();
     }
   };
 
   // Update specific input field
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const HandleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setUser(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
 
   return (
     <main style={{ marginLeft: "1rem", marginTop: "5px" }}>
       <h1>Users</h1>
       <form>
-        <input onChange={handleChange} value={user.Id} type="text" name="Id" placeholder="ID" />
+        <input onChange={HandleChange} value={user.Id} type="text" name="Id" placeholder="ID" />
         <br />
-        <input onChange={handleChange} value={user.Login} type="text" name="Login" placeholder="Login" />
+        <input onChange={HandleChange} value={user.Login} type="text" name="Login" placeholder="Login" />
         <br />
-        <input onChange={handleChange} value={user.Email} type="email" name="Email" placeholder="Email" />
+        <input onChange={HandleChange} value={user.Email} type="email" name="Email" placeholder="Email" />
         <br />
-        <input onChange={handleChange} value={user.Password} type="password" name="Password" placeholder="Password" />
+        <input onChange={HandleChange} value={user.Password} type="password" name="Password" placeholder="Password" />
         <br />
         <div style={{ marginTop: "5px" }}>
           <button onClick={addUser}>Add User</button>
-          <button onClick={updateUser}>Update User</button>
+          <button onClick={UpdateUser}>Update User</button>
         </div>
       </form>
 
@@ -134,8 +134,8 @@ export default function Home() {
               <td>{user.Email}</td>
               <td>{user.Password}</td>
               <td>
-                <button onClick={() => editUser(user.Id)}>Editar</button>
-                <button onClick={() => deleteUser(user.Id)}>Delete</button>
+                <button onClick={() => EditUser(user.Id)}>Editar</button>
+                <button onClick={() => DeleteUser(user.Id)}>Delete</button>
               </td>
             </tr>
           ))}

@@ -5,7 +5,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
   const { Id, Login, FirstName, LastName, DisplayName, Email, Password } = req.body;
 
   if (req.method === 'GET') {
@@ -37,8 +36,6 @@ export default async function handler(
     });
     res.status(201).json(post);
   } else if (req.method === 'DELETE') {
-    console.log("DELETE->req: ", req);
-    console.log("DELETE->req.query: ", req.query);
     const { Id } = req.query;
     const postId = typeof Id === 'string' ? parseInt(Id) : Array.isArray(Id) ? parseInt(Id[0]) : Id;
     const post = await prisma.user.delete({
