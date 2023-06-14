@@ -102,8 +102,6 @@ export default function Home() {
     <main style={{ marginLeft: "1rem", marginTop: "5px" }}>
       <h1>Users</h1>
       <form>
-        <input onChange={HandleChange} value={user.Id} type="text" name="Id" placeholder="ID" />
-        <br />
         <input onChange={HandleChange} value={user.Login} type="text" name="Login" placeholder="Login" />
         <br />
         <input onChange={HandleChange} value={user.Email} type="email" name="Email" placeholder="Email" />
